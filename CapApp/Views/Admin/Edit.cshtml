@@ -1,0 +1,41 @@
+﻿@model CapApp.Models.Person
+
+@{
+    ViewBag.Title = "Adminitracja: edycja " + @Model.Name;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel">
+    <div class="panel-heading">
+        <h3>Edycja @Model.Name</h3>
+    </div>
+
+    @using (Html.BeginForm("Edit", "Admin"))
+    {
+        <div class="panel-body">
+            @Html.HiddenFor(m => m.PersonId)
+            @foreach (var property in ViewData.ModelMetadata.Properties) {
+            if (property.PropertyName != "PersonId"){
+            <div class="form-group">
+                <label>@(property.DisplayName ?? property.PropertyName) </label>
+                @if (property.PropertyName == "LastName") { 
+                    @Html.TextBox(property.PropertyName, null,
+                        new { @class = "form-control",})
+                    } else {
+                    @Html.TextBox(property.PropertyName, null,
+                        new { @class = "form-control" })
+                    }
+                @Html.ValidationMessage(property.PropertyName)
+                    </div>
+            }
+            }
+        </div>
+        <div class="panel-footer">
+            <input type="submit" value="Zapisz" class="btn btn-primary"/>
+            @Html.ActionLink("Anuluj i wróć do edycji", "ChangeMod", null, new
+       {
+            @class = "btn btn-default"
+       })
+        </div>
+    }
+</div>

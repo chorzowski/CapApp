@@ -1,0 +1,39 @@
+﻿@using CapApp.Models
+
+
+@model IEnumerable<Person>
+
+
+@{
+    ViewBag.Title = "Persons P";
+}
+<h1>Lista osób</h1>
+<p>@ViewBag.K </p>
+
+
+
+@using (Html.BeginForm("SaveRecord", "Home", FormMethod.Post))
+{
+
+
+    foreach (var p in Model)
+    {
+       <ul>
+           <li>
+               @Html.DisplayFor(modelItem => p.Name)
+               @Html.DisplayFor(modelItem => p.LastName)
+           </li>
+       </ul>
+      
+    }
+
+
+    <input type="submit" value="Submit" class="btn btn-block btn-primary" />
+
+
+
+
+}
+
+
+
